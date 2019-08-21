@@ -3,7 +3,7 @@ using namespace std;
 
 int main()
 {
-	int i,j,n,a[10];
+	int i,j,n,a[10],max;
 	cout<<"Enter size:";
 	cin>>n;
 	cout<<"Enter the elements:";
@@ -14,15 +14,15 @@ int main()
 	cin>>k;
 	for(i=0;i<k;i++)
 	{
-		for(j=0;j<n-2-i;j++)
+		for(j=0;j<n-1-i;j++)
 		{
-			if(a[j+1]>a[j])
+			if(a[j+1]<a[j])
 			{
 				int temp=a[j];
 				a[j]=a[j+1];
 				a[j+1]=temp;
 			}
-			int max=a[n-2-i];
+			 max=a[n-1-i];
 		}
 		cout<<max;
 	}
