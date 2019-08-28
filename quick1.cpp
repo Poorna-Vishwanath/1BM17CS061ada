@@ -2,7 +2,7 @@
  
 using namespace std;
  
-void quick_sort(int[],int,int);
+void combine(int[],int,int);
 int partition(int[],int,int);
  
 int main()
@@ -15,7 +15,7 @@ int main()
     for(i=0;i<n;i++)
         cin>>a[i];
         
-    quick_sort(a,0,n-1);
+    combine(a,0,n-1);
     cout<<"\nArray after sorting:";
     
     for(i=0;i<n;i++)
@@ -24,7 +24,7 @@ int main()
     return 0;        
 }
  
-void quick_sort(int a[],int low,int high)
+void combine(int a[],int low,int high)
 {
     int pivot_pos;
     if(low<high)
