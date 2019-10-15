@@ -1,46 +1,54 @@
 #include<iostream>
 using namespace std;
-#define N 4
-//int n;
-int adj[N][N];
-int indegree[4];
-void indegree1(){
-   for(int i=0;i<=N;i++){
-      indegree[i]=0;
-   }
-   for(int i=0;i<=N;i++){
-      for(int j=0;j<=N;j++){
-      indegree[i]=indegree[i]+adj[j][i];
-      }
-   }
-}
-void topologicalsort(){
-  indegree1();
-int count=0;
-  for(int i=0;i<=N;i++){
-     if(indegree[i]==0){
-       count++;
-       cout<<i<<" ";
-       indegree[i]=-1;
-        for(int j=0;j<N;j++){
-          if(adj[i][j]==1){
-           indegree[j]=indegree[j]-1;
-          }
+
+int tasks[10][10],n;
+
+void input(){
+    int prev_task=0, task=0;
+    cout<<"enter no. of tasks \n";
+    cin>>n;
+    for(int i =0;i<n;i++){
+        for(int j=0;j<n;j++){
+            tasks[i][j]=0;
         }
-  }
-  
+    }
+    while(task != -1 || prev_task !=-1){
+        cout<<"enter dependencies [task dependency]........[-1 -1] to stop\n";
+        cin>>task>>prev_task;
+        if(task!= -1 || prev_task!=-1)
+            tasks[prev_task][task]=1;
+        }
 }
-    if(count==0){
-      cout<<"Cycle in Graph - No solution exists\n";}
+
+void topologicalOrder(){
+    int indegree[10],k,stack[10],top=-1;
+    for(int i=0;i<n;i++){
+        indegree[i]=0;
+        for(int j=0;j<n;j++){
+            indegree[i] +=tasks[j][i];
+        }
+    }
+    for(int i=0;i<n;i++){
+            if(indegree[i]==0){
+                stack[++top]=i;
+            }
+    }
+    while(top!=-1 ){
+            k=stack[top--];
+            cout<<k<<"\t";
+            indegree[k]=-1;
+            for(int l=0;l<n;l++){
+                if(tasks[k][l]==1){
+                    indegree[l] -=1;
+                    if(indegree[l]== 0)
+                        stack[++top]=l;
+                }
+            }
+    }
+    cout<<"\n";
 }
 int main(){
- 
- cout<<"enter adjacency matrix \n";
- for(int i=0;i<=N;i++){
-  for(int j=0;j<=N;j++){
-    cin>>adj[i][j];
-  }
- } 
-topologicalsort();
- return 0;
+    input();
+    topologicalOrder();
+    return 0;
 }
